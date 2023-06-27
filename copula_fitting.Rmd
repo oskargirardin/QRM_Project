@@ -6,6 +6,78 @@ output: html_document
 ---
 
 ```{r}
-data = read.csv("")
+library(copula)
+library(VineCopula)
+```
+```{r}
+
+get_u_v = function(data){
+  u = pobs(data[,1])
+  v = pobs(data[,2])
+  return(cbind(u,v))
+}
+
+get_selected_copula = function(m){
+  u = m[,1]
+  v = m[,2]
+  selectedCopula <- BiCopSelect(u,v,familyset=NA)
+  return(selectedCopula)
+}
 ```
 
+# FTSE & DAX
+
+```{r}
+data = read.csv("./data/ftse_dax.csv")
+```
+
+```{r}
+m = get_u_v(data)
+
+# T copula was selected
+get_selected_copula(m)
+```
+
+```{r}
+t.cop = tCopula(dim=2)
+fit <- fitCopula(t.cop,m,method='ml', lower = 0)
+coef(fit)
+```
+
+# FTSE & SP500
+
+```{r}
+data = read.csv("./data/ftse_sp500.csv")
+```
+
+```{r}
+m = get_u_v(data)
+
+# T copula was selected
+get_selected_copula(m)
+```
+
+```{r}
+t.cop = tCopula(dim=2)
+fit <- fitCopula(t.cop,m,method='ml', lower = 0)
+coef(fit)
+```
+
+# DAX & SP500
+
+```{r}
+data = read.csv("./data/dax_sp500.csv")
+```
+
+```{r}
+m = get_u_v(data)
+
+# T copula was selected
+get_selected_copula(m)
+```
+
+```{r}
+t.cop = tCopula(dim=2)
+fit <- fitCopula(t.cop,m,method='ml', lower = 0)
+coef(fit)
+```
