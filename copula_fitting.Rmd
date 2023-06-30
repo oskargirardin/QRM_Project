@@ -25,10 +25,15 @@ get_selected_copula = function(m){
 }
 ```
 
+```{r}
+losses = read.csv("./data/losses.csv")
+```
+
+
 # FTSE & DAX
 
 ```{r}
-data = read.csv("./data/ftse_dax.csv")
+data = losses[,c("FTSE", "DAX")]
 ```
 
 ```{r}
@@ -47,7 +52,7 @@ coef(fit)
 # FTSE & SP500
 
 ```{r}
-data = read.csv("./data/ftse_sp500.csv")
+data = losses[,c("FTSE", "SP500")]
 ```
 
 ```{r}
@@ -66,7 +71,7 @@ coef(fit)
 # DAX & SP500
 
 ```{r}
-data = read.csv("./data/dax_sp500.csv")
+data = losses[,c("DAX", "SP500")]
 ```
 
 ```{r}
